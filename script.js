@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable prefer-const */
 
@@ -7,16 +8,39 @@ const gameFlow = (() => {
   // Creates Player Objects starting game
   let player1 = player('Player1', 'X');
   let player2 = player('player2', 'O');
-  
   let activePlayer = player1;
+
+  let winningCombs = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === player1 ? player2 : player1;
-    // return (activePlayer);
   };
   
   const getActivePlayer = () => activePlayer;
 
-  return { getActivePlayer, switchPlayerTurn };
+  const checkWinner = (boardArray) => {
+  winningCombs.forEach((comb) => {
+    if (
+      boardArray[comb[0]] === boardArray[comb[1]] 
+      && boardArray[comb[1]] === boardArray[comb[2]]
+      && boardArray[comb[0]] !== ''
+      ) {
+        return true;
+      }
+      return false;
+  });
+  };
+
+  return { getActivePlayer, switchPlayerTurn, checkWinner };
 })();
 
 const gameBoard = (() => {
@@ -30,11 +54,12 @@ const gameBoard = (() => {
   };
   
   const markBoard = (selectedCell) => {
-    // Checks if cell is available for sign if not the click is ignored
-    // Add respective players sign to board where the clicked and switches player turn
+    // Checks if cell is available if not the click is ignored
+    // Add respective players sign to board where clicked and switches player turn
     if (boardArray[selectedCell] === '') {
       boardArray[selectedCell] = gameFlow.getActivePlayer().sign;
       setBoard();
+      gameFlow.checkWinner(boardArray);
       gameFlow.switchPlayerTurn();
     }
   };
