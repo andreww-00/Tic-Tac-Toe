@@ -45,6 +45,15 @@ const gameFlow = (() => {
   return { getActivePlayer, switchPlayerTurn, checkWinner };
 })();
 
+const displayControl = (() => {
+  let winnerBox = document.querySelector('.winner');
+
+  const displayWinner = () => {
+    winnerBox.textContent = `${gameFlow.getActivePlayer().name}` + ' is the winner!';
+  };
+  return { displayWinner };
+})();
+
 const gameBoard = (() => {
   const boardArray = ['', '', '', '', '', '', '', '', ''];
   
@@ -55,28 +64,29 @@ const gameBoard = (() => {
     }
   };
   
-  const markBoard = (selectedCell) => {
+  const takeTurn = (selectedCell) => {
     // Checks if cell is available if not the click is ignored
     // Add respective players sign to board where clicked and switches player turn
     if (boardArray[selectedCell] === '') {
       boardArray[selectedCell] = gameFlow.getActivePlayer().sign;
       setBoard();
       if (gameFlow.checkWinner(boardArray)) {
-        console.log('winner');
+        displayControl.displayWinner();
       }
       gameFlow.switchPlayerTurn();
     }
   };
 
-  // Listen for button click and determine which button was pressed passing that value to markBoard
+  // Listen for button click and determine which button was pressed passing that value to takeTurn
   const gameCells = document.querySelectorAll('.cell');
   gameCells.forEach((item) => {
     item.addEventListener('click', (e) => {
       let selectedCell = e.target.dataset.cell;
-      markBoard(selectedCell);
+      takeTurn(selectedCell);
     });
   });
   return { setBoard };
 })();
+
 
 gameBoard.setBoard();
