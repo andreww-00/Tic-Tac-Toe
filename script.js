@@ -1,3 +1,6 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-undef */
 /* eslint-disable indent */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable prefer-const */
@@ -28,7 +31,7 @@ const gameFlow = (() => {
   const getActivePlayer = () => activePlayer;
 
   const checkWinner = (boardArray) => {
-  winningCombs.forEach((comb) => {
+  for (comb of winningCombs) {
     if (
       boardArray[comb[0]] === boardArray[comb[1]] 
       && boardArray[comb[1]] === boardArray[comb[2]]
@@ -36,8 +39,7 @@ const gameFlow = (() => {
       ) {
         return true;
       }
-      return false;
-  });
+  }
   };
 
   return { getActivePlayer, switchPlayerTurn, checkWinner };
@@ -59,7 +61,9 @@ const gameBoard = (() => {
     if (boardArray[selectedCell] === '') {
       boardArray[selectedCell] = gameFlow.getActivePlayer().sign;
       setBoard();
-      gameFlow.checkWinner(boardArray);
+      if (gameFlow.checkWinner(boardArray)) {
+        console.log('winner');
+      }
       gameFlow.switchPlayerTurn();
     }
   };
