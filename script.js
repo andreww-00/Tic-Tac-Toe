@@ -9,8 +9,8 @@ const player = (name, sign) => ({ name, sign });
 
 const gameFlow = (() => {
   // Creates Player Objects starting game
-  let player1 = player('Player1', 'X');
-  let player2 = player('player2', 'O');
+  let player1 = player('Player 1', 'X');
+  let player2 = player('Player 2', 'O');
   let activePlayer = player1;
 
   let winningCombs = [
@@ -49,14 +49,18 @@ const displayControl = (() => {
   let winnerBox = document.querySelector('.winner');
 
   const displayWinner = () => {
-    winnerBox.textContent = `${gameFlow.getActivePlayer().name}` + ' is the winner!';
+    winnerBox.textContent = `${gameFlow.getActivePlayer().name} is the winner!`;
   };
-  return { displayWinner };
+
+  const displayTie = () => {
+    winnerBox.textContent = 'Its a tie!';
+  }
+  return { displayWinner, displayTie };
 })();
 
 const gameBoard = (() => {
   const boardArray = ['', '', '', '', '', '', '', '', ''];
-  
+  let turn = 0; 
   const setBoard = () => {
     const gameCells = document.querySelectorAll('.cell');
     for (let i = 0; i < gameCells.length; i += 1) {
@@ -67,11 +71,14 @@ const gameBoard = (() => {
   const takeTurn = (selectedCell) => {
     // Checks if cell is available if not the click is ignored
     // Add respective players sign to board where clicked and switches player turn
+    turn += 1;
     if (boardArray[selectedCell] === '') {
       boardArray[selectedCell] = gameFlow.getActivePlayer().sign;
       setBoard();
       if (gameFlow.checkWinner(boardArray)) {
         displayControl.displayWinner();
+      } else if (turn === 9) {
+        displayControl.displayTie();
       }
       gameFlow.switchPlayerTurn();
     }
