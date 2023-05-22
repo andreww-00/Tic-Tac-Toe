@@ -45,6 +45,7 @@ const gameFlow = (() => {
   return { getActivePlayer, switchPlayerTurn, checkWinner };
 })();
 
+// displayController module
 const displayControl = (() => {
   let winnerBox = document.querySelector('.winner');
 
@@ -54,10 +55,19 @@ const displayControl = (() => {
 
   const displayTie = () => {
     winnerBox.textContent = 'Its a tie!';
-  }
-  return { displayWinner, displayTie };
+  };
+
+  const disableBoard = () => {
+    const gameCells = document.querySelectorAll('.cell');
+    gameCells.forEach((item) => {
+    item.removeEventListener('click', () => {
+    }); 
+  });
+  };
+  return { displayWinner, displayTie, disableBoard };
 })();
 
+// Module for gameBoard
 const gameBoard = (() => {
   const boardArray = ['', '', '', '', '', '', '', '', ''];
   let turn = 0; 
@@ -77,8 +87,10 @@ const gameBoard = (() => {
       setBoard();
       if (gameFlow.checkWinner(boardArray)) {
         displayControl.displayWinner();
+        displayControl.disableBoard();
       } else if (turn === 9) {
         displayControl.displayTie();
+        displayControl.disableBoard();
       }
       gameFlow.switchPlayerTurn();
     }

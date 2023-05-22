@@ -15,5 +15,6 @@ body {
 }
 
 button {
-    padding: 3rem;
+    min-width: 125px;
+    min-height: 125px;
 }
