@@ -14,7 +14,25 @@ body {
     grid-template-rows: repeat(3, auto);
 }
 
-button {
+.cell {
     min-width: 125px;
     min-height: 125px;
+}
+
+div.hidden {
+    display: none;
+}
+
+.gameText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.startScreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

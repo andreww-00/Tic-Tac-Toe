@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,19 +9,30 @@
     <script defer src="script.js"></script>
     <title>Tic Tac Toe</title>
 </head>
+
 <body>
-    <h3>Tic-Tac-Toe</h3>
-    <div class="gameBoard">
-    <button class="cell" data-cell="0"></button>
-    <button class="cell" data-cell="1"></button>
-    <button class="cell" data-cell="2"></button>
-    <button class="cell" data-cell="3"></button>
-    <button class="cell" data-cell="4"></button>
-    <button class="cell" data-cell="5"></button>
-    <button class="cell" data-cell="6"></button>
-    <button class="cell" data-cell="7"></button>
-    <button class="cell" data-cell="8"></button>
+    <div class="startScreen">
+        <h3>Tic-Tac-Toe</h3>
+        <p>By: Andrew Webster </p>
+        <button class="start">Start</button>
+    </div>
+
+    <div class="gameText hidden">
+        <p>Tic Tac Toe</p>
+        <p>X goes first!</p>
+        <div class="gameBoard">
+            <button class="cell" data-cell="0"></button>
+            <button class="cell" data-cell="1"></button>
+            <button class="cell" data-cell="2"></button>
+            <button class="cell" data-cell="3"></button>
+            <button class="cell" data-cell="4"></button>
+            <button class="cell" data-cell="5"></button>
+            <button class="cell" data-cell="6"></button>
+            <button class="cell" data-cell="7"></button>
+            <button class="cell" data-cell="8"></button>
+        </div>
     </div>
     <div class="winner"></div>
 </body>
+
 </html>

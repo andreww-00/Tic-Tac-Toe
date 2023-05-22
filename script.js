@@ -57,14 +57,22 @@ const displayControl = (() => {
     winnerBox.textContent = 'Its a tie!';
   };
 
-  const disableBoard = () => {
-    const gameCells = document.querySelectorAll('.cell');
-    gameCells.forEach((item) => {
-    item.removeEventListener('click', () => {
-    }); 
+  // const disableBoard = () => {
+  //   const gameCells = document.querySelectorAll('.cell');
+  //   gameCells.forEach((item) => {
+  //   item.removeEventListener('click', () => {
+  //   }); 
+  // });
+  // };
+
+  let startButton = document.querySelector('.start');
+  let startScreen = document.querySelector('.startScreen');
+  let boardElement = document.querySelector('.gameText');
+  startButton.addEventListener('click', () => {
+    startScreen.classList.add('hidden');
+    boardElement.classList.remove('hidden');
   });
-  };
-  return { displayWinner, displayTie, disableBoard };
+  return { displayWinner, displayTie };
 })();
 
 // Module for gameBoard
@@ -87,10 +95,10 @@ const gameBoard = (() => {
       setBoard();
       if (gameFlow.checkWinner(boardArray)) {
         displayControl.displayWinner();
-        displayControl.disableBoard();
+        // displayControl.disableBoard();
       } else if (turn === 9) {
         displayControl.displayTie();
-        displayControl.disableBoard();
+        // displayControl.disableBoard();
       }
       gameFlow.switchPlayerTurn();
     }
