@@ -77,7 +77,7 @@ const displayControl = (() => {
 
 // Module for gameBoard
 const gameBoard = (() => {
-  const boardArray = ['', '', '', '', '', '', '', '', ''];
+  let boardArray = ['', '', '', '', '', '', '', '', ''];
   let turn = 0; 
   const setBoard = () => {
     const gameCells = document.querySelectorAll('.cell');
@@ -104,6 +104,12 @@ const gameBoard = (() => {
     }
   };
 
+  let restartButton = document.querySelector('.restart');
+    restartButton.addEventListener('click', () => {
+      boardArray = ['', '', '', '', '', '', '', '', ''];
+      setBoard();
+    });
+    
   // Listen for button click and determine which button was pressed passing that value to takeTurn
   const gameCells = document.querySelectorAll('.cell');
   gameCells.forEach((item) => {
